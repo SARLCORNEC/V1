@@ -14,9 +14,11 @@
     <!-- Add custom CSS here -->
     <link href="css/modern-business.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<script src="js/tab_mod.js"></script>
   </head>
 
-  <body>
+  <body onload="anchor_ext();">
+  
 
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
@@ -38,15 +40,15 @@
             <li class="dropdown">
 				<a data-target="#" href="#" class="dropdown-toggle" data-toggle="dropdown">Création - Entretien <b class="caret"></b></a>
 				<ul class="dropdown-menu">
-					<li><a href="feuille.html#service-one">Entretien Jardin / SALP</a></li>
-					<li><a href="feuille.html#service-two">Abattage</a></li>
-					<li><a href="feuille.html#service-three">Élagage</a></li>
-					<li><a href="feuille.html#service-four">Débroussaillage</a></li>
-					<li><a href="feuille.html#service-five">Accès / Portail</a></li>
-					<li><a href="feuille.html#service-six">Gazon</a></li>
-					<li><a href="feuille.html#service-seven">Murets</a></li>
-					<li><a href="feuille.html#service-eight">Terrasse</a></li>
-					<li><a href="feuille.html#service-nine">Maçonnerie</a></li>
+					<li><a href="feuille.html#service-one" onclick="anchor_int(this);">Entretien Jardin / SALP</a></li>
+					<li><a href="feuille.html#service-two" onclick="anchor_int(this);">Abattage</a></li>
+					<li><a href="feuille.html#service-three" onclick="anchor_int(this);">Élagage</a></li>
+					<li><a href="feuille.html#service-four" onclick="anchor_int(this);">Débroussaillage</a></li>
+					<li><a href="feuille.html#service-five" onclick="anchor_int(this);">Accès / Portail</a></li>
+					<li><a href="feuille.html#service-six" onclick="anchor_int(this);">Gazon</a></li>
+					<li><a href="feuille.html#service-seven" onclick="anchor_int(this);">Murets</a></li>
+					<li><a href="feuille.html#service-eight" onclick="anchor_int(this);">Terrasse</a></li>
+					<li><a href="feuille.html#service-nine" onclick="anchor_int(this);">Maçonnerie</a></li>
 				</ul>
 			</li>
             <li class="dropdown">
@@ -251,6 +253,7 @@
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/modern-business.js"></script>
+	
 
 
   </body>
