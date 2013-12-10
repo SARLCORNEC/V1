@@ -20,8 +20,11 @@ function anchor_ext(){
 	var myTabContent = document.getElementById("myTabContent");
 	var divs = myTabContent.getElementsByTagName("div");
 	for(var i=0 ; i<divs.length; i++){
-		divs[i].setAttribute("class","tab-pane fade");
+		if(divs[i].getAttribute("class").indexOf("tab") != -1){
+			//alert(divs[i].getAttribute("class"));
+			divs[i].setAttribute("class","tab-pane fade");
 		//alert(lis[i].getElementsByTagName("a")[0].getAttribute("href"));
+		}
 		if((anchor)==divs[i].getAttribute("id")){
 			divs[i].setAttribute("class","tab-pane fade active in");
 		}
@@ -37,6 +40,7 @@ function anchor_int(obj){
 	var tab = document.getElementById("myTab");
 	var lis = tab.getElementsByTagName("li");
 	for(var i=0 ; i<lis.length; i++){
+		//alert(lis[i].getAttribute("class"));
 		lis[i].setAttribute("class","");
 		
 		if(("#"+anchor)==lis[i].getElementsByTagName("a")[0].getAttribute("href")){
@@ -48,7 +52,9 @@ function anchor_int(obj){
 	var myTabContent = document.getElementById("myTabContent");
 	var divs = myTabContent.getElementsByTagName("div");
 	for(var i=0 ; i<divs.length; i++){
-		divs[i].setAttribute("class","tab-pane fade");
+		if(divs[i].getAttribute("class").indexOf("tab") != -1){
+			divs[i].setAttribute("class","tab-pane fade");
+		}
 		//alert(lis[i].getElementsByTagName("a")[0].getAttribute("href"));
 		if((anchor)==divs[i].getAttribute("id")){
 			divs[i].setAttribute("class","tab-pane fade active in");
