@@ -68,7 +68,7 @@
 	google.maps.event.removeListener(listenerMap);
 	
 	listenerMap=google.maps.event.addListener(map, 'click', function(event) {
-	if (waypoints.length < 20) {
+	if (haies.length < 20) {
 	  waypoints.push({ location: destination, stopover: true });
 	  destination = event.latLng;
 	  //addMarker(destination,markersHaies);
@@ -87,7 +87,7 @@
 	google.maps.event.removeListener(listenerMap);
 	
 	listenerMap=google.maps.event.addListener(map, 'click', function(event) {
-	if (waypoints.length < 20) {
+	if (terrasses.length < 20) {
 	  waypoints.push({ location: destination, stopover: true });
 	  destination = event.latLng;
 	  //addMarker(destination,markersTerrasses);
@@ -106,7 +106,7 @@
 	google.maps.event.removeListener(listenerMap);
 	
 	listenerMap=google.maps.event.addListener(map, 'click', function(event) {
-	if (waypoints.length < 20) {
+	if (coords.length < 20) {
 	  waypoints.push({ location: destination, stopover: true });
 	  destination = event.latLng;
 	  //addMarker(destination,markers);
@@ -125,7 +125,7 @@
 	google.maps.event.removeListener(listenerMap);
 	
 	listenerMap=google.maps.event.addListener(map, 'click', function(event) {
-	if (waypoints.length < 20) {
+	if (piscines.length < 20) {
 	  waypoints.push({ location: destination, stopover: true });
 	  destination = event.latLng;
 	  //addMarker(destination,markersPiscines);
