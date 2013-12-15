@@ -20,13 +20,20 @@
   var destination = null;
   var waypoints = [];
   var markers = [];
+  var markersTerrasses = [];
+  var markersHaies = [];
+  var markersPiscines = [];
   var directionsVisible = false;
   var polygone;
+  var polygoneTerrasse;
+  var polygoneHaie;
+  var polygonePiscine;
   var coords = [];
   var geocoder;
   var map;
   var haies = [];
   var terrasses = [];
+  var piscines = [];
   var listenerMap;
 
   function initialize() {
@@ -45,8 +52,7 @@
 	if (waypoints.length < 20) {
 	  waypoints.push({ location: destination, stopover: true });
 	  destination = event.latLng;
-	  addMarker(destination);
-	  //addHaie(destination);
+	  //addMarker(destination,markers);
 	  if(!coords.length) coords[0]=destination;
 	  else coords[coords.length-1]=destination;
 	  coords[coords.length]=coords[0];
@@ -62,8 +68,18 @@
 	google.maps.event.removeListener(listenerMap);
 	
 	listenerMap=google.maps.event.addListener(map, 'click', function(event) {
+	if (waypoints.length < 20) {
+	  waypoints.push({ location: destination, stopover: true });
 	  destination = event.latLng;
-	  addHaie(destination);
+	  //addMarker(destination,markersHaies);
+	  //addHaie(destination);
+	  if(!haies.length) haies[0]=destination;
+	  else haies[haies.length-1]=destination;
+	  haies[haies.length]=haies[0];
+	  tracePolygoneHaie(haies);
+	} else {
+	  alert("Maximum number of waypoints reached");
+	}
     });
   }
   
@@ -71,8 +87,18 @@
 	google.maps.event.removeListener(listenerMap);
 	
 	listenerMap=google.maps.event.addListener(map, 'click', function(event) {
+	if (waypoints.length < 20) {
+	  waypoints.push({ location: destination, stopover: true });
 	  destination = event.latLng;
-	  addTerrasse(destination);
+	  //addMarker(destination,markersTerrasses);
+	  //addHaie(destination);
+	  if(!terrasses.length) terrasses[0]=destination;
+	  else terrasses[terrasses.length-1]=destination;
+	  terrasses[terrasses.length]=terrasses[0];
+	  tracePolygoneTerrasse(terrasses);
+	} else {
+	  alert("Maximum number of waypoints reached");
+	}
     });
   }
   
@@ -83,12 +109,31 @@
 	if (waypoints.length < 20) {
 	  waypoints.push({ location: destination, stopover: true });
 	  destination = event.latLng;
-	  addMarker(destination);
+	  //addMarker(destination,markers);
 	  //addHaie(destination);
 	  if(!coords.length) coords[0]=destination;
 	  else coords[coords.length-1]=destination;
 	  coords[coords.length]=coords[0];
 	  tracePolygone(coords);
+	} else {
+	  alert("Maximum number of waypoints reached");
+	}
+    });
+  }
+  
+  function addPiscines(){
+	google.maps.event.removeListener(listenerMap);
+	
+	listenerMap=google.maps.event.addListener(map, 'click', function(event) {
+	if (waypoints.length < 20) {
+	  waypoints.push({ location: destination, stopover: true });
+	  destination = event.latLng;
+	  //addMarker(destination,markersPiscines);
+	  //addHaie(destination);
+	  if(!piscines.length) piscines[0]=destination;
+	  else piscines[piscines.length-1]=destination;
+	  piscines[piscines.length]=piscines[0];
+	  tracePolygonePiscine(piscines);
 	} else {
 	  alert("Maximum number of waypoints reached");
 	}
@@ -105,33 +150,73 @@
 		strokeOpacity: 0.8,
 		strokeWeight: 2,
 		fillColor: '#FF0000',
-		fillOpacity: 0.35
+		fillOpacity: 0.35,
+		editable: true,
+		clickable : false
 		});
 		polygone.setMap(map);
   }
   }
-
-  function addMarker(latlng) {
-    markers.push(new google.maps.Marker({
-      position: latlng,
-      map: map,
-      icon: "http://maps.google.com/mapfiles/marker" + String.fromCharCode(markers.length + 65) + ".png"
-    }));
+  
+    function tracePolygoneTerrasse(coords){
+	if(coords.length > 3){
+		if(coords.length > 4) polygoneTerrasse.setMap(null);
+		// Construct the polygon.
+		polygoneTerrasse = new google.maps.Polygon({
+		paths: coords,
+		strokeColor: '#696969',
+		strokeOpacity: 0.8,
+		strokeWeight: 2,
+		fillColor: '#696969',
+		fillOpacity: 0.35,
+		editable: true,
+		clickable : false
+		});
+		polygoneTerrasse.setMap(map);
+  }
+  }
+  
+    function tracePolygoneHaie(coords){
+	if(coords.length > 3){
+		if(coords.length > 4) polygoneHaie.setMap(null);
+		// Construct the polygon.
+		polygoneHaie = new google.maps.Polygon({
+		paths: coords,
+		strokeColor: '#006600',
+		strokeOpacity: 0.8,
+		strokeWeight: 2,
+		fillColor: '#006600',
+		fillOpacity: 0.35,
+		editable: true,
+		clickable : false
+		});
+		polygoneHaie.setMap(map);
+  }
+  }
+  
+  function tracePolygonePiscine(coords){
+	if(coords.length > 3){
+		if(coords.length > 4) polygonePiscine.setMap(null);
+		// Construct the polygon.
+		polygonePiscine = new google.maps.Polygon({
+		paths: coords,
+		strokeColor: '#0000CC',
+		strokeOpacity: 0.8,
+		strokeWeight: 2,
+		fillColor: '#0000CC',
+		fillOpacity: 0.35,
+		editable: true,
+		clickable : false
+		});
+		polygonePiscine.setMap(map);
+  }
   }
 
-  function addHaie(latlng) {
-    haies.push(new google.maps.Marker({
+  function addMarker(latlng,marker) {
+    marker.push(new google.maps.Marker({
       position: latlng,
       map: map,
-      icon: "http://rlv.zcache.fr/haie_de_cedre_modeles_de_cartes_de_visite-r902f1bde785949c6ae6b9de0c544bb11_i579u_8byvr_50.jpg"
-    }));
-  }
-
-  function addTerrasse(latlng) {
-    terrasses.push(new google.maps.Marker({
-      position: latlng,
-      map: map,
-      icon: "http://www.amenager-ma-maison.com/1626-small/dalle-terrasse-composite.jpg"
+      icon: "http://maps.google.com/mapfiles/marker" + String.fromCharCode(marker.length + 65) + ".png"
     }));
   }
   
@@ -139,23 +224,36 @@
     for (var i = 0; i < markers.length; i++) {
       markers[i].setMap(null);
     }
-	polygone.setMap(null);
+	if(polygone!=null) polygone.setMap(null);
 	coords = [];
 	markers = [];
   }
   
   function clearTerrasses() {
-    for (var i = 0; i < terrasses.length; i++) {
-      terrasses[i].setMap(null);
+    for (var i = 0; i < markersTerrasses.length; i++) {
+      markersTerrasses[i].setMap(null);
     }
+	if(polygoneTerrasse!=null) polygoneTerrasse.setMap(null);
 	terrasses = [];
+	markersTerrasses = [];
+  }
+  
+  function clearPiscines() {
+    for (var i = 0; i < markersPiscines.length; i++) {
+      markersPiscines[i].setMap(null);
+    }
+	if(polygonePiscine!=null) polygonePiscine.setMap(null);
+	piscines = [];
+	markersPiscines = [];
   }
   
   function clearHaies() {
-    for (var i = 0; i < haies.length; i++) {
-      haies[i].setMap(null);
+    for (var i = 0; i < markersHaies.length; i++) {
+      markersHaies[i].setMap(null);
     }
+	if(polygoneHaie!=null) polygoneHaie.setMap(null);
 	haies = [];
+	markersHaies = [];
   }
 
   function clearWaypoints() {
@@ -169,6 +267,7 @@
   function reset() {
 	clearTerrasses();
 	clearHaies();
+	clearPiscines();
     clearMarkers();
     clearWaypoints();
     directionsDisplay.setMap(null);
@@ -190,7 +289,7 @@
 	}
 	
 	function calcArea(){
-	alert(google.maps.geometry.spherical.computeArea(coords)+" m²");
+	alert("contours :"+google.maps.geometry.spherical.computeArea(coords)+" m²  \nterrasses :"+google.maps.geometry.spherical.computeArea(terrasses)+" m²  \nhaies :"+google.maps.geometry.spherical.computeArea(haies)+" m² \npiscines :"+google.maps.geometry.spherical.computeArea(piscines)+"m²");
 	}
   
 </script>
@@ -206,6 +305,7 @@
 	  <td><input type="button" value="Clear Haies" onclick="clearHaies()" /></td>
 	  <td><input type="button" value="Clear Terrasses" onclick="clearTerrasses()" /></td>
 	  <td><input type="button" value="Clear Coutours" onclick="clearMarkers()" /></td>
+	  <td><input type="button" value="Clear Piscines" onclick="clearPiscines()" /></td>
     </tr>
     <tr>
       <td><input type="button" value="Get Area!" onclick="calcArea()" /></td>
@@ -220,14 +320,13 @@
       <input id="address" type="textbox" value="Fouesnant">
       <input type="button" value="Search" onclick="codeAddress()">
     </div>
-	<div>
-      <input type="button" value="Trace contours" onclick="traceContours()">
-    </div>
-	<div>
-      <input type="button" value="Add Haies" onclick="addHaies()">
-    </div>
-	<div>
-      <input type="button" value="Add Terrasses" onclick="addTerrasses()">
-    </div>
+	<table style="width: 400px">
+	<tr>
+      <td><input type="button" value="Trace contours" onclick="traceContours()"></td>
+      <td><input type="button" value="Add Haies" onclick="addHaies()"></td>
+      <td><input type="button" value="Add Terrasses" onclick="addTerrasses()"></td>
+	  <td><input type="button" value="Add Piscines" onclick="addPiscines()"></td>
+    </tr>
+	</table>
 </body>
 </html>
